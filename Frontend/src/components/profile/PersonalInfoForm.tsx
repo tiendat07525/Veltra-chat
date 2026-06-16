@@ -128,7 +128,7 @@ const PersonalInfoForm = ({ userInfo }: Props) => {
           <Button
             type="submit"
             disabled={isSaving}
-            className="w-full md:w-auto bg-gradient-primary hover:opacity-90 transition-opacity"
+            className="w-full md:w-auto bg-blue-500 hover:opacity-90 transition-opacity"
           >
             {isSaving ? "Đang lưu..." : "Lưu thay đổi"}
           </Button>

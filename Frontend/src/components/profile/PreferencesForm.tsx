@@ -12,7 +12,6 @@ import { useThemeStore } from "@/stores/useThemeStore";
 
 const PreferencesForm = () => {
   const { isDark, setTheme } = useThemeStore();
-
   return (
     <Card className="glass-strong border-border/30">
       <CardHeader>
@@ -39,14 +38,24 @@ const PreferencesForm = () => {
             </p>
           </div>
           <div className="flex items-center gap-2">
-            <Sun className="h-4 w-4 text-muted-foreground" />
+            <Sun
+              className={`size-4 ${
+                !isDark ? "text-yellow-500" : "text-muted-foreground"
+              }`}
+            />
+
             <Switch
-              id="theme-toggle"
+              aria-label="Toggle dark mode"
               checked={isDark}
               onCheckedChange={setTheme}
-              className="data-[state=checked]:bg-primary-glow"
+              className="data-[state=checked]:bg-primary"
             />
-            <Moon className="h-4 w-4 text-muted-foreground" />
+
+            <Moon
+              className={`size-4 ${
+                isDark ? "text-blue-400" : "text-muted-foreground"
+              }`}
+            />
           </div>
         </div>
       </CardContent>
