@@ -1,28 +1,27 @@
 import { useAuthStore } from "@/stores/useAuthStore";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Navigate, Outlet } from "react-router";
 
 const ProtectedRoute = () => {
-  const { accessToken, user, loading, refresh, fetchMe } = useAuthStore();
+  const { accessToken, user, loading, fetchMe } = useAuthStore();
   const [starting, setStarting] = useState(true);
 
-  const init = useCallback(async () => {
-    if (!accessToken) {
-      await refresh(true);
-      setStarting(false);
-      return;
-    }
-
-    if (accessToken && !user) {
-      await fetchMe();
-    }
-
-    setStarting(false);
-  }, [accessToken, fetchMe, refresh, user]);
-
   useEffect(() => {
+    const init = async () => {
+      if (!accessToken) {
+        setStarting(false);
+        return;
+      }
+
+      if (!user) {
+        await fetchMe();
+      }
+
+      setStarting(false);
+    };
+
     void init();
-  }, [init]);
+  }, [accessToken, fetchMe, user]);
 
   if (starting || loading) {
     return (
